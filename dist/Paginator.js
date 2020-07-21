@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-require("core-js/modules/es7.symbol.async-iterator");
+require("core-js/modules/es.symbol.async-iterator");
 
-require("core-js/modules/es6.symbol");
+require("core-js/modules/es.symbol");
 
-require("core-js/modules/es6.object.set-prototype-of");
+require("core-js/modules/es.object.set-prototype-of");
 
 var _react = _interopRequireDefault(require("react"));
 
