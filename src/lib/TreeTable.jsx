@@ -4,6 +4,9 @@ import {faAngleRight, faAngleDown, faAngleUp, faSearch} from '@fortawesome/free-
 
 import Paginator from './Paginator';
 import './BootstrapTreeTable.css';
+import {faSort} from "@fortawesome/free-solid-svg-icons/faSort";
+import {faSortUp} from "@fortawesome/free-solid-svg-icons/faSortUp";
+import {faSortDown} from "@fortawesome/free-solid-svg-icons/faSortDown";
 
 class TreeTable extends React.Component {
 
@@ -211,19 +214,20 @@ class TreeTable extends React.Component {
         if (this.props.enhancedColumns) {
             headingRows.push(this.props.enhancedColumns.map((column, index) => {
                     let fieldTitle = column.heading ? column.heading : column.dataField;
+                    let key = column.key? column.key : column.dataField
                     let sortIcon = null;
                     if (column.sortOrder === 'asc') {
-                        sortIcon = <FontAwesomeIcon icon={faAngleUp} fixedWidth pull="right"/>;
+                        sortIcon = <FontAwesomeIcon icon={faSortUp} fixedWidth pull="right"/>;
                     } else if (column.sortOrder === 'desc') {
-                        sortIcon = <FontAwesomeIcon icon={faAngleDown} fixedWidth pull="right"/>;
+                        sortIcon = <FontAwesomeIcon icon={faSortDown} fixedWidth pull="right"/>;
                     } else {
-                        sortIcon = null;
+                        sortIcon = <FontAwesomeIcon icon={faSort} fixedWidth pull="right"/>;
                     }
                     if (this.props.control.allowSorting && column.sortable) {
-                        return <th key={fieldTitle}
+                        return <th key={key}
                                    onClick={this.props.sortByField.bind(null, index)}>{sortIcon}{fieldTitle}</th>;
                     } else {
-                        return <th key={fieldTitle}>{fieldTitle}</th>;
+                        return <th key={key}>{fieldTitle}</th>;
                     }
                 }
             ))
@@ -288,6 +292,7 @@ class TreeTable extends React.Component {
                 <div className='row col-12'>
                     <table className='table table-bordered'>
                         <thead>
+                        {this.props.extraHeader ? this.props.extraHeader : null}
                         <tr>
                             {headingRows}
                         </tr>

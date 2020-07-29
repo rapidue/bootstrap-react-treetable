@@ -9,7 +9,7 @@ class BootstrapTreeTable extends React.Component {
     constructor(props) {
         super(props);
         let initialState = this.generateInitialState();
-        //bind functions passed to TreeTable
+        //bind functions passed to TreeTablef
         this.sortByField = this.sortByField.bind(this);
         this.applyFilter = this.applyFilter.bind(this);
         this.expandOrCollapseAll = this.expandOrCollapseAll.bind(this);
@@ -277,6 +277,7 @@ class BootstrapTreeTable extends React.Component {
                        expandOrCollapseAll={this.expandOrCollapseAll}
                        expanded={this.state.expanded}
                        resetSorting={this.resetSorting}
+                       extraHeader={this.props.extraHeader}
                        showResetSortingButton={this.state.showResetSortingButton}
                        enhancedColumns={this.state.enhancedColumns}
                        sortByField={this.sortByField}
