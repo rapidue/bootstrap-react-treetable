@@ -345,6 +345,11 @@ class BootstrapTreeTable extends _react.default.Component {
     });
   }
 
+  componentDidMount(prevProps, prevState, snapshot) {
+    if (prevProps === this.props) return;
+    this.resetSorting();
+  }
+
   render() {
     return /*#__PURE__*/_react.default.createElement(_TreeTable.default, {
       tableData: this.state.enhancedTableData,
