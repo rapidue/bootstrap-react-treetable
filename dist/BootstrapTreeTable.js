@@ -5,21 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-require("core-js/modules/es.array.iterator");
+require("core-js/modules/es6.array.iterator");
 
-require("core-js/modules/es.object.keys");
+require("core-js/modules/es6.object.keys");
 
-require("core-js/modules/es.object.set-prototype-of");
+require("core-js/modules/es6.object.set-prototype-of");
 
-require("core-js/modules/es.array.sort");
+require("core-js/modules/es6.array.sort");
 
-require("core-js/modules/es.object.assign");
+require("core-js/modules/es6.object.assign");
 
-require("core-js/modules/es.symbol.async-iterator");
+require("core-js/modules/es7.symbol.async-iterator");
 
-require("core-js/modules/es.symbol");
+require("core-js/modules/es6.symbol");
 
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/web.dom.iterable");
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -65,7 +65,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(BootstrapTreeTable).call(this, props));
 
-    var initialState = _this.generateInitialState(); //bind functions passed to TreeTable
+    var initialState = _this.generateInitialState(); //bind functions passed to TreeTablef
 
 
     _this.sortByField = _this.sortByField.bind(_assertThisInitialized(_this));
@@ -399,6 +399,7 @@ function (_React$Component) {
         expandOrCollapseAll: this.expandOrCollapseAll,
         expanded: this.state.expanded,
         resetSorting: this.resetSorting,
+        extraHeader: this.props.extraHeader,
         showResetSortingButton: this.state.showResetSortingButton,
         enhancedColumns: this.state.enhancedColumns,
         sortByField: this.sortByField,

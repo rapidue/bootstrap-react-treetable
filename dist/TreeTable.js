@@ -5,19 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-require("core-js/modules/es.string.iterator");
+require("core-js/modules/es6.string.iterator");
 
-require("core-js/modules/es.array.from");
+require("core-js/modules/es6.array.from");
 
-require("core-js/modules/es.regexp.to-string");
+require("core-js/modules/es6.regexp.to-string");
 
-require("core-js/modules/es.symbol.async-iterator");
+require("core-js/modules/es7.symbol.async-iterator");
 
-require("core-js/modules/es.symbol");
+require("core-js/modules/es6.symbol");
 
-require("core-js/modules/es.object.set-prototype-of");
+require("core-js/modules/es6.object.set-prototype-of");
 
-require("core-js/modules/web.dom-collections.iterator");
+require("core-js/modules/web.dom.iterable");
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -28,6 +28,12 @@ var _freeSolidSvgIcons = require("@fortawesome/free-solid-svg-icons");
 var _Paginator = _interopRequireDefault(require("./Paginator"));
 
 require("./BootstrapTreeTable.css");
+
+var _faSort = require("@fortawesome/free-solid-svg-icons/faSort");
+
+var _faSortUp = require("@fortawesome/free-solid-svg-icons/faSortUp");
+
+var _faSortDown = require("@fortawesome/free-solid-svg-icons/faSortDown");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -337,32 +343,37 @@ function (_React$Component) {
       if (this.props.enhancedColumns) {
         headingRows.push(this.props.enhancedColumns.map(function (column, index) {
           var fieldTitle = column.heading ? column.heading : column.dataField;
+          var key = column.key ? column.key : column.dataField;
           var sortIcon = null;
 
           if (column.sortOrder === 'asc') {
             sortIcon = _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
-              icon: _freeSolidSvgIcons.faAngleUp,
+              icon: _faSortUp.faSortUp,
               fixedWidth: true,
               pull: "right"
             });
           } else if (column.sortOrder === 'desc') {
             sortIcon = _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
-              icon: _freeSolidSvgIcons.faAngleDown,
+              icon: _faSortDown.faSortDown,
               fixedWidth: true,
               pull: "right"
             });
           } else {
-            sortIcon = null;
+            sortIcon = _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
+              icon: _faSort.faSort,
+              fixedWidth: true,
+              pull: "right"
+            });
           }
 
           if (_this4.props.control.allowSorting && column.sortable) {
             return _react.default.createElement("th", {
-              key: fieldTitle,
+              key: key,
               onClick: _this4.props.sortByField.bind(null, index)
             }, sortIcon, fieldTitle);
           } else {
             return _react.default.createElement("th", {
-              key: fieldTitle
+              key: key
             }, fieldTitle);
           }
         }));
@@ -436,7 +447,7 @@ function (_React$Component) {
         className: "row col-12"
       }, _react.default.createElement("table", {
         className: "table table-bordered"
-      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, headingRows)), _react.default.createElement("tbody", null, tableBody))), _react.default.createElement("div", {
+      }, _react.default.createElement("thead", null, this.props.extraHeader ? this.props.extraHeader : null, _react.default.createElement("tr", null, headingRows)), _react.default.createElement("tbody", null, tableBody))), _react.default.createElement("div", {
         className: "row col-12 justify-content-center"
       }, this.generatePaginatorRow()));
     }
