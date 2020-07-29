@@ -267,6 +267,10 @@ class BootstrapTreeTable extends React.Component {
         });
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps === this.props) return;
+        this.resetSorting();
+    }
     render() {
         return (
             <TreeTable tableData={this.state.enhancedTableData}

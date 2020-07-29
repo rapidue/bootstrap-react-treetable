@@ -345,7 +345,7 @@ class BootstrapTreeTable extends _react.default.Component {
     });
   }
 
-  componentDidMount(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps === this.props) return;
     this.resetSorting();
   }
