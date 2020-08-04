@@ -216,6 +216,7 @@ class TreeTable extends React.Component {
             headingRows.push(this.props.enhancedColumns.map((column, index) => {
                     let fieldTitle = column.heading ? column.heading : column.dataField;
                     let key = column.key? column.key : column.dataField
+                    const headerClass = 'header-' +column.styleClass;
                     let sortIcon = null;
                     if (column.sortOrder === 'asc') {
                         sortIcon = <FontAwesomeIcon icon={faSortUp} fixedWidth pull="right"/>;
@@ -226,9 +227,10 @@ class TreeTable extends React.Component {
                     }
                     if (this.props.control.allowSorting && column.sortable) {
                         return <th key={key}
+                                   className={headerClass}
                                    onClick={this.props.sortByField.bind(null, index)}>{sortIcon}{fieldTitle}</th>;
                     } else {
-                        return <th key={key}>{fieldTitle}</th>;
+                        return <th key={key} className={headerClass}>{fieldTitle}</th>;
                     }
                 }
             ))

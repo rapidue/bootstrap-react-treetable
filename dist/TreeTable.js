@@ -288,6 +288,7 @@ class TreeTable extends _react.default.Component {
       headingRows.push(this.props.enhancedColumns.map((column, index) => {
         let fieldTitle = column.heading ? column.heading : column.dataField;
         let key = column.key ? column.key : column.dataField;
+        const headerClass = 'header-' + column.styleClass;
         let sortIcon = null;
 
         if (column.sortOrder === 'asc') {
@@ -313,11 +314,13 @@ class TreeTable extends _react.default.Component {
         if (this.props.control.allowSorting && column.sortable) {
           return /*#__PURE__*/_react.default.createElement("th", {
             key: key,
+            className: headerClass,
             onClick: this.props.sortByField.bind(null, index)
           }, sortIcon, fieldTitle);
         } else {
           return /*#__PURE__*/_react.default.createElement("th", {
-            key: key
+            key: key,
+            className: headerClass
           }, fieldTitle);
         }
       }));
