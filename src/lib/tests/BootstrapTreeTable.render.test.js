@@ -77,7 +77,7 @@ let columns = [
 
 test('component renders as expected', () => {
     const component = renderer.create(
-        <BootstrapTreeTable columns={columns} tableData={tableData} control={controlWithButton}/>,
+        <BootstrapTreeTable className={''} containerClassName={''} columns={columns} tableData={tableData} control={controlWithButton}/>,
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

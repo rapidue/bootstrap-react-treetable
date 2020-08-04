@@ -356,6 +356,8 @@ class BootstrapTreeTable extends _react.default.Component {
       control: this.props.control,
       filterValue: this.state.filterValue,
       filtered: this.state.filtered,
+      className: this.props.className,
+      containerClassName: this.props.containerClassName,
       applyFilter: this.applyFilter,
       expandOrCollapseAll: this.expandOrCollapseAll,
       expanded: this.state.expanded,
@@ -376,6 +378,8 @@ BootstrapTreeTable.propTypes = {
     data: _propTypes.default.object,
     children: _propTypes.default.arrayOf(_propTypes.default.object)
   })).isRequired,
+  containerClassName: _propTypes.default.string,
+  className: _propTypes.default.string,
   control: _propTypes.default.shape({
     visibleRows: _propTypes.default.number,
     showExpandCollapseButton: _propTypes.default.bool,
@@ -402,6 +406,8 @@ BootstrapTreeTable.propTypes = {
 };
 BootstrapTreeTable.defaultProps = {
   tableData: [],
+  containerClassName: '',
+  className: '',
   control: {
     visibleRows: 1,
     showExpandCollapseButton: true,
@@ -418,6 +424,7 @@ BootstrapTreeTable.defaultProps = {
     percentageWidth: 0,
     renderer: null,
     sortable: true,
+    styleClass: '',
     sortUsingRenderer: false,
     sortType: 'string',
     sortDateFormat: null,

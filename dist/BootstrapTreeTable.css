@@ -20,3 +20,25 @@
     border-bottom: 1px solid #444;
     cursor: pointer;
 }
+
+tr.child-row td{
+    background: orange;
+}
+
+tr.shown.child-row:nth-child(even) td{
+    background: green;
+}
+
+tr.hidden.child-row:nth-child(even) td {
+    display: none;
+}
+
+tr.hidden.child-row ~ tr.shown.child-row:nth-child(odd) td{
+    background: green;
+}
+
+tr.hidden.child-row ~ tr.shown.child-row:nth-child(even) td{
+    background: orange;
+}
+
+

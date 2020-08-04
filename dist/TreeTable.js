@@ -1,5 +1,7 @@
 "use strict";
 
+require("core-js/modules/es.array.concat");
+
 require("core-js/modules/es.array.filter");
 
 require("core-js/modules/es.array.iterator");
@@ -137,20 +139,22 @@ class TreeTable extends _react.default.Component {
     }
   }
 
-  generateTableBodyRows(tableData, startRow, endRow) {
+  generateTableBodyRows(tableData, startRow, endRow, className = 'root-row') {
     let tableBody = [];
     tableData.forEach((dataRow, index) => {
+      debugger;
+
       if (index >= startRow && index <= endRow) {
         let rowData = this.processDataRow(dataRow);
         let key = dataRow.parentRowID + '-' + dataRow.rowID;
         let rowClass = dataRow.visible ? 'shown' : 'hidden';
         tableBody.push( /*#__PURE__*/_react.default.createElement("tr", {
-          className: rowClass,
+          className: "".concat(rowClass, " ").concat(className),
           key: key
         }, rowData));
 
         if (dataRow.children) {
-          tableBody.push(...this.generateTableBodyRows(dataRow.children, startRow, endRow));
+          tableBody.push(...this.generateTableBodyRows(dataRow.children, startRow, endRow, 'child-row'));
         }
       }
     });
@@ -169,13 +173,13 @@ class TreeTable extends _react.default.Component {
       if (this.props.enhancedColumns[0].fixedWidth) {
         return /*#__PURE__*/_react.default.createElement("td", {
           key: key,
-          className: "",
+          className: this.props.enhancedColumns[0].styleClass,
           width: this.props.enhancedColumns[0].percentageWidth + '%'
         }, output);
       } else {
         return /*#__PURE__*/_react.default.createElement("td", {
           key: key,
-          className: ""
+          className: this.props.enhancedColumns[0].styleClass
         }, output);
       }
     }
@@ -198,7 +202,7 @@ class TreeTable extends _react.default.Component {
       if (this.props.enhancedColumns[0].fixedWidth) {
         return /*#__PURE__*/_react.default.createElement("td", {
           key: key,
-          className: "",
+          className: this.props.enhancedColumns[0].styleClass,
           width: this.props.enhancedColumns[0].percentageWidth + '%'
         }, /*#__PURE__*/_react.default.createElement("span", {
           style: {
@@ -210,7 +214,7 @@ class TreeTable extends _react.default.Component {
       } else {
         return /*#__PURE__*/_react.default.createElement("td", {
           key: key,
-          className: ""
+          className: this.props.enhancedColumns[0].styleClass
         }, /*#__PURE__*/_react.default.createElement("span", {
           style: {
             marginLeft: dataRow.rowLevel + 'em'
@@ -223,7 +227,7 @@ class TreeTable extends _react.default.Component {
       if (this.props.enhancedColumns[0].fixedWidth) {
         return /*#__PURE__*/_react.default.createElement("td", {
           key: key,
-          className: "",
+          className: this.props.enhancedColumns[0].styleClass,
           width: this.props.enhancedColumns[0].percentageWidth + '%'
         }, /*#__PURE__*/_react.default.createElement("span", {
           style: {
@@ -235,7 +239,7 @@ class TreeTable extends _react.default.Component {
       } else {
         return /*#__PURE__*/_react.default.createElement("td", {
           key: key,
-          className: ""
+          className: this.props.enhancedColumns[0].styleClass
         }, /*#__PURE__*/_react.default.createElement("span", {
           style: {
             marginLeft: dataRow.rowLevel + 1.25 + 'em'
@@ -263,13 +267,13 @@ class TreeTable extends _react.default.Component {
         if (column.fixedWidth) {
           return /*#__PURE__*/_react.default.createElement("td", {
             key: key,
-            className: "",
+            className: column.styleClass,
             width: column.percentageWidth + '%'
           }, output);
         } else {
           return /*#__PURE__*/_react.default.createElement("td", {
             key: key,
-            className: ""
+            className: column.styleClass
           }, output);
         }
       }
@@ -346,7 +350,7 @@ class TreeTable extends _react.default.Component {
     let headingRows = this.generateHeaderRow();
     let tableBody = this.generateTableBody(this.state.tableData, this.state.startRow, this.state.endRow);
     return /*#__PURE__*/_react.default.createElement("div", {
-      className: "container-fluid"
+      className: "container-fluid ".concat(this.props.containerClassName || '')
     }, /*#__PURE__*/_react.default.createElement("div", {
       className: "row col-12 justify-content-between"
     }, /*#__PURE__*/_react.default.createElement("div", {
@@ -384,8 +388,10 @@ class TreeTable extends _react.default.Component {
     }))))), /*#__PURE__*/_react.default.createElement("div", {
       className: "row col-12"
     }, /*#__PURE__*/_react.default.createElement("table", {
-      className: "table table-bordered"
-    }, /*#__PURE__*/_react.default.createElement("thead", null, this.props.extraHeader ? this.props.extraHeader : null, /*#__PURE__*/_react.default.createElement("tr", null, headingRows)), /*#__PURE__*/_react.default.createElement("tbody", null, tableBody))), /*#__PURE__*/_react.default.createElement("div", {
+      className: "table table-bordered ".concat(this.props.className || '')
+    }, /*#__PURE__*/_react.default.createElement("thead", null, this.props.extraHeader ? this.props.extraHeader : null, /*#__PURE__*/_react.default.createElement("tr", {
+      className: "rcyl-header"
+    }, headingRows)), /*#__PURE__*/_react.default.createElement("tbody", null, tableBody))), /*#__PURE__*/_react.default.createElement("div", {
       className: "row col-12 justify-content-center"
     }, this.generatePaginatorRow()));
   }

@@ -109,16 +109,17 @@ class TreeTable extends React.Component {
         }
     }
 
-    generateTableBodyRows(tableData, startRow, endRow) {
+    generateTableBodyRows(tableData, startRow, endRow, className = 'root-row') {
         let tableBody = [];
         tableData.forEach((dataRow, index) => {
+            debugger
                 if (index >= startRow && index <= endRow) {
                     let rowData = this.processDataRow(dataRow);
                     let key = dataRow.parentRowID + '-' + dataRow.rowID;
                     let rowClass = dataRow.visible ? 'shown' : 'hidden';
-                    tableBody.push(<tr className={rowClass} key={key}>{rowData}</tr>);
+                    tableBody.push(<tr className={`${rowClass} ${className}`} key={key}>{rowData}</tr>);
                     if (dataRow.children) {
-                        tableBody.push(...this.generateTableBodyRows(dataRow.children, startRow, endRow));
+                        tableBody.push(...this.generateTableBodyRows(dataRow.children, startRow, endRow, 'child-row'));
                     }
                 }
             }
@@ -135,13 +136,13 @@ class TreeTable extends React.Component {
             //no expander required
             if (this.props.enhancedColumns[0].fixedWidth) {
                 return (
-                    <td key={key} className=''
+                    <td key={key} className={this.props.enhancedColumns[0].styleClass}
                         width={this.props.enhancedColumns[0].percentageWidth + '%'}>
                         {output}
                     </td>);
             } else {
                 return (
-                    <td key={key} className=''>
+                    <td key={key} className={this.props.enhancedColumns[0].styleClass}>
                         {output}
                     </td>);
             }
@@ -154,13 +155,13 @@ class TreeTable extends React.Component {
                                             onClick={this.props.rowExpandOrCollapse.bind(null, dataRow.rowID)}/>;
             }
             if (this.props.enhancedColumns[0].fixedWidth) {
-                return (<td key={key} className=''
+                return (<td key={key} className={this.props.enhancedColumns[0].styleClass}
                             width={this.props.enhancedColumns[0].percentageWidth + '%'}><span
                         style={{marginLeft: dataRow.rowLevel + 'em'}}>{iconCell}<span
                         className="iconPadding">{output}</span></span></td>
                 );
             } else {
-                return (<td key={key} className=''><span
+                return (<td key={key} className={this.props.enhancedColumns[0].styleClass}><span
                         style={{marginLeft: dataRow.rowLevel + 'em'}}>{iconCell}<span
                         className="iconPadding">{output}</span></span></td>
                 );
@@ -168,7 +169,7 @@ class TreeTable extends React.Component {
         } else {
             if (this.props.enhancedColumns[0].fixedWidth) {
                 return (
-                    <td key={key} className=''
+                    <td key={key} className={this.props.enhancedColumns[0].styleClass}
                         width={this.props.enhancedColumns[0].percentageWidth + '%'}><span
                         style={{marginLeft: (dataRow.rowLevel + 1.25) + 'em'}}>
                     <span className="iconPadding">{output}</span>
@@ -176,7 +177,7 @@ class TreeTable extends React.Component {
                     </td>);
             } else {
                 return (
-                    <td key={key} className=''><span
+                    <td key={key} className={this.props.enhancedColumns[0].styleClass}><span
                         style={{marginLeft: (dataRow.rowLevel + 1.25) + 'em'}}>
                     <span className="iconPadding">{output}</span>
                 </span>
@@ -197,11 +198,11 @@ class TreeTable extends React.Component {
                     return this.generateExpandColumn(dataRow, key, column.dataField);
                 } else {
                     if (column.fixedWidth) {
-                        return (<td key={key} className=''
+                        return (<td key={key} className={column.styleClass}
                                     width={column.percentageWidth + '%'}>{output}</td>)
                     } else {
                         return (
-                            <td key={key} className=''>{output}</td>)
+                            <td key={key} className={column.styleClass}>{output}</td>)
                     }
                 }
             }
@@ -258,7 +259,7 @@ class TreeTable extends React.Component {
         let headingRows = this.generateHeaderRow();
         let tableBody = this.generateTableBody(this.state.tableData, this.state.startRow, this.state.endRow);
         return (
-            <div className="container-fluid">
+            <div className={`container-fluid ${this.props.containerClassName || ''}`}>
                 <div className="row col-12 justify-content-between">
                     <div className='col-2'>
                         <button onClick={this.props.expandOrCollapseAll.bind(null)}
@@ -290,10 +291,10 @@ class TreeTable extends React.Component {
                     </div>
                 </div>
                 <div className='row col-12'>
-                    <table className='table table-bordered'>
+                    <table className={`table table-bordered ${this.props.className || ''}`}>
                         <thead>
                         {this.props.extraHeader ? this.props.extraHeader : null}
-                        <tr>
+                        <tr className='rcyl-header'>
                             {headingRows}
                         </tr>
                         </thead>

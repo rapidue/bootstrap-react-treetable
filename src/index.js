@@ -269,6 +269,8 @@ const App = () => {
                         </li>
                     </ol>
                     <BootstrapTreeTable
+                        className={'rcyl-table'}
+                        containerClassName={'rcyl-container-class'}
                         extraHeader={extraHeader}
                         columns={fixedColumns} tableData={tableData} control={controlWithButton}/>
                     <table className="table table-bordered">

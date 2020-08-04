@@ -23,12 +23,6 @@
     "build:demo": "npm run clean:demo && webpack --config webpack.config.demo.js -p --bail",
     "lint": "eslint src"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm test",
-      "pre-push": "npm run lint && npm test"
-    }
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
